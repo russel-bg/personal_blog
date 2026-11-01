@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Install Hugo 0.140.0 extended (pinned, matches theme)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.140.0"
+          extended: true
+
+      - name: Show Hugo version
+        run: hugo version
+
+      - name: Build site
+        run: hugo --minify --gc
+
+      - name: Serve built site
+        run: |
+          hugo server --bind 127.0.0.1 --port 1313 --noBuildLock &
+          echo $! > /tmp/hugo.pid
+          # wait until the server answers
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null http://localhost:1313/; then
+              echo "server is up"
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Run smoke tests
+        run: |
+          chmod +x scripts/smoke_test.sh
+          ./scripts/smoke_test.sh
+
+      - name: Stop server
+        if: always()
+        run: |
+          if [[ -f /tmp/hugo.pid ]]; then kill "$(cat /tmp/hugo.pid)" || true; fi

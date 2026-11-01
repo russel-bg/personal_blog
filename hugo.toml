@@ -1,0 +1,44 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "My Bioinformatics Blog"
+theme = "hugo-clarity"
+
+[pagination]
+pagerSize = 10
+
+[params]
+introName = "Bio"
+introDescription = "Personal bioinformatics notes: single-cell, pipelines and AI tooling."
+introTitle = "Bioinformatics Blog"
+dateFormat = "2006-01-02"
+mainSections = ["posts"]
+enableIntroLayout = true
+
+[params.author]
+name = "Bio Informaticus"
+
+[[menus.main]]
+name = "Home"
+url = ""
+weight = -110
+
+[[menus.main]]
+name = "About"
+url = "about/"
+weight = -109
+
+[[menus.main]]
+name = "CV"
+url = "cv/"
+weight = -108
+
+[[menus.main]]
+name = "Links"
+identifier = "Links"
+url = "#"
+weight = -107
+
+[[menus.main]]
+parent = "Links"
+name = "LinkedIn"
+url = "https://www.linkedin.com/in/ruslan-bogdanov-software-dev/"

@@ -20,7 +20,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  administration: write
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -41,10 +40,6 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          # create the Pages site automatically if it does not exist yet,
-          # so no manual "Settings -> Pages" step is ever required
-          enablement: true
 
       - name: Install Hugo
         run: |

@@ -44,9 +44,28 @@ hugo server --bind 0.0.0.0 --port 1313
 hugo --minify --gc        # static site goes to ./public/
 ```
 
-Deploy `public/` to any static host: GitHub Pages, Netlify, Cloudflare Pages,
-S3 + CloudFront, nginx. For GitHub Pages, set `baseURL` in `hugo.toml` to the
-final URL (e.g. `https://<user>.github.io/<repo>/`) before building.
+Do not commit `public/` — Hugo recreates it on every build (it is gitignored).
+
+## Deploy to GitHub Pages
+
+Deployment follows the official Hugo procedure
+(https://gohugo.io/host-and-deploy/deploy-to-github-pages/):
+
+1. Push the repository to GitHub.
+2. In the repo: **Settings → Pages → Source: "GitHub Actions"**.
+3. That's it. The deploy workflow `.github/workflows/deploy.yaml` runs on every
+   push to `main` (and on demand via *workflow_dispatch*): it installs the pinned
+   Hugo 0.140.0 extended, builds with `--baseURL` taken from
+   `actions/configure-pages` (so `baseURL` in `hugo.toml` does **not** need to be
+   edited manually), and deploys `./public` via `actions/deploy-pages`.
+
+The `baseURL = "http://localhost:1313/"` in `hugo.toml` is only used for local
+development; the deploy pipeline overrides it at build time. For a custom
+domain, configure it in **Settings → Pages** and `configure-pages` passes the
+right URL into the build.
+
+CI (`.github/workflows/ci.yml`) additionally runs the smoke tests on every push
+to any branch and on pull requests.
 
 ## Writing posts
 

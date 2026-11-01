@@ -3,6 +3,10 @@ languageCode = "en-us"
 title = "My Bioinformatics Blog"
 theme = "hugo-clarity"
 
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
 [pagination]
 pagerSize = 10
 

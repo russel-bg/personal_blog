@@ -7,4 +7,4 @@ description: "Curriculum Vitae"
 
 # Curriculum Vitae
 
-Placeholder CV page — replace with your own.
+**build → sleep → repeat**

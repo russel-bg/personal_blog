@@ -11,8 +11,6 @@
 name: Build and deploy
 env:
   HUGO_VERSION: 0.140.0
-  # Hugo's module/image cache lives here; the Cache steps below persist it.
-  HUGO_CACHEDIR: ${{ runner.temp }}/.cache/hugo
 on:
   push:
     branches:
@@ -75,6 +73,9 @@ jobs:
           restore-keys: hugo-
 
       - name: Build
+        env:
+          # Hugo's module/image cache lives here; the Cache steps below persist it.
+          HUGO_CACHEDIR: ${{ runner.temp }}/.cache/hugo
         run: |
           echo "Building the project..."
           hugo \

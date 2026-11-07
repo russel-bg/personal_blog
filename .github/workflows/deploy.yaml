@@ -11,6 +11,8 @@
 name: Build and deploy
 env:
   HUGO_VERSION: 0.140.0
+  # Hugo's module/image cache lives here; the Cache steps below persist it.
+  HUGO_CACHEDIR: ${{ runner.temp }}/.cache/hugo
 on:
   push:
     branches:
@@ -31,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: false
           fetch-depth: 0
@@ -39,7 +41,7 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Install Hugo
         run: |
@@ -66,7 +68,7 @@ jobs:
 
       - name: Cache restore
         id: cache-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/.cache/hugo
           key: hugo-${{ github.run_id }}
@@ -81,15 +83,14 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Cache save
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/.cache/hugo
           key: ${{ steps.cache-restore.outputs.cache-primary-key }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          include-hidden-files: false
           path: ./public
 
   deploy:
@@ -101,4 +102,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

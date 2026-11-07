@@ -50,5 +50,5 @@ Most of the repos live on my GitHub: [github.com/russel-bg](https://github.com/r
 ## Contacts
 
 - GitHub: [github.com/russel-bg](https://github.com/russel-bg)
-- Telegram: {{TELEGRAM_HANDLE}}
-- LinkedIn: {{LINKEDIN_URL}}
+- Telegram: [@rus_bg_software_eng](https://t.me/rus_bg_software_eng)
+- LinkedIn: [linkedin.com/in/ruslan-bogdanov-software-dev](https://www.linkedin.com/in/ruslan-bogdanov-software-dev/)

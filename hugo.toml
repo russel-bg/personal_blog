@@ -11,6 +11,7 @@ theme = "hugo-clarity"
 pagerSize = 10
 
 [params]
+logo = "logos/logo.png"
 introName = "Bio"
 introDescription = "Personal bioinformatics notes: single-cell, pipelines and AI tooling."
 introTitle = "Bioinformatics Blog"
